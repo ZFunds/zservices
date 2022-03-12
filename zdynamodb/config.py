@@ -15,9 +15,6 @@ class Config:
     # Log
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 
-    # Security
-    ZFUNDS_API_KEY = os.getenv('ZFUNDS_API_KEY', '')
-
     # AWS
     AWS = {
         's3_key_id': os.getenv('AWS_S3_KEY_ID'),

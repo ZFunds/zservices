@@ -1,12 +1,14 @@
-from dynamodb import logger, Config
+from zdynamodb import logger, Config
 import boto3
 from botocore.config import Config as BConfig
 
 
 class DynamoDB:
-    def __init__(self):
+    def __init__(self, connection_parameter=None, b_config=None):
         logger.debug('[DynamoDB]: Initiating DynamoDB Connection Class')
-        self._connection_parameter = None
+        self._connection_parameter = connection_parameter
+        if self._connection_parameter:
+            self.set_connection_parameter(**connection_parameter)
         self._resource = None
         self._config = BConfig(retries={'max_attempts': 3, 'mode': 'standard'})
 
@@ -34,7 +36,7 @@ class DynamoDB:
             self.set_connection_parameter()
         try:
             logger.debug('[DynamoDB]: Creating DynamoDB connection')
-            dynamodb_resource = boto3.resource('dynamodb', region_name=self._connection_parameter['region'],
+            dynamodb_resource = boto3.resource('zdynamodb', region_name=self._connection_parameter['region'],
                                                aws_access_key_id=self._connection_parameter['s3_key_id'],
                                                aws_secret_access_key=self._connection_parameter['s3_key_secret'],
                                                config=self._config)

@@ -1,10 +1,12 @@
-from dynamodb.dynamo import DynamoDB
+from zdynamodb.dynamo import DynamoDB
 from boto3.dynamodb.conditions import Key
+from zdynamodb import logger
 
 
 class DynamoQueries:
-    def __init__(self, table_name):
-        self.db = DynamoDB()
+    def __init__(self, table_name, connection_params=None):
+        logger.info('[DynamoDB]: Initiating DynamoQueries Class')
+        self.db = DynamoDB(connection_params)
         self.table = self.db.connection.Table(table_name)
 
     def get_pk_context(self, pk, pk_value, table_name):

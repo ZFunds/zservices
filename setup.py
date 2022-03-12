@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(
     name='zservices',
-    packages=['dynamodb', 'mongodb', 's3'],
-    package_dir={'dynamodb': 'dynamodb', 'mongodb': 'mongodb', 's3': 's3'},
-    version='0.0.6',
+    packages=['zdynamodb', 'zmongodb', 'zs3'],
+    package_dir={'zdynamodb': 'zdynamodb', 'zmongodb': 'zmongodb', 'zs3': 'zs3'},
+    version='0.0.9',
     license='MIT',
     platforms='cross-platfom, platform-independent',
     description='ZFunds basic services',
@@ -12,8 +12,8 @@ setup(
     author='Yogesh Yadav',
     author_email='yogesh@zfunds.in',
     url='https://github.com/ZFunds/zservices/',
-    download_url='https://github.com/ZFunds/zservices',
-    keywords=['dynamodb', 'mongodb', 's3'],
+    download_url='https://github.com/ZFunds/zservices/',
+    keywords=['zdynamodb', 'zmongodb', 'zs3'],
     install_requires=[
         'python-dotenv==0.19.2', 'boto3==1.21.17'
     ],
