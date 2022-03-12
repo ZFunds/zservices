@@ -1,0 +1,10 @@
+build
+dist
+zservices.egg-info
+.env
+.idea
+test
+poetry.lock
+pyproject.toml
+
+
