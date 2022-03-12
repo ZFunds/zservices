@@ -4,7 +4,7 @@ setup(
     name='zservices',
     packages=['zdynamodb', 'zmongodb', 'zs3'],
     package_dir={'zdynamodb': 'zdynamodb', 'zmongodb': 'zmongodb', 'zs3': 'zs3'},
-    version='0.0.9',
+    version='0.1.0',
     license='MIT',
     platforms='cross-platfom, platform-independent',
     description='ZFunds basic services',
