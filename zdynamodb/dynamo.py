@@ -36,17 +36,16 @@ class DynamoDB:
             self.set_connection_parameter()
         try:
             logger.debug('[DynamoDB]: Creating DynamoDB connection')
-            dynamodb_resource = boto3.resource('zdynamodb', region_name=self._connection_parameter['region'],
+            dynamodb_resource = boto3.resource('dynamodb', region_name=self._connection_parameter['region'],
                                                aws_access_key_id=self._connection_parameter['s3_key_id'],
                                                aws_secret_access_key=self._connection_parameter['s3_key_secret'],
                                                config=self._config)
-
+            self._resource = dynamodb_resource
             # For testing connection only, because boto3 only return resource class not exactly a connection
             table_name = self._connection_parameter.get('dynamo_table')
             if table_name:
                 table = dynamodb_resource.Table(table_name)
                 if table.table_status == 'ACTIVE':  # this throws exception as expected
-                    self._resource = dynamodb_resource
                     logger.info(f'[DynamoDB]: Connection Successful. Connection={self._resource}')
                 else:
                     raise Exception('Unable to connect to table=connection_backend')

@@ -19,5 +19,3 @@ if not logger.hasHandlers():
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-import dynamo
-import queries
