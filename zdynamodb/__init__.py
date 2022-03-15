@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 if not load_dotenv(override=False):
     print('Could not find any .env file. The module will depend on system env only')
 
-from config import Config
+from zdynamodb.config import Config
 
 logger = logging.getLogger(os.getenv('APP_NAME', __name__))
 

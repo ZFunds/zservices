@@ -4,7 +4,7 @@ setup(
     name='zservices',
     packages=['zdynamodb'],
     package_dir={'zdynamodb': 'zdynamodb'},
-    version='0.1.2',
+    version='0.1.4',
     license='MIT',
     platforms='cross-platfom, platform-independent',
     description='ZFunds basic services',
