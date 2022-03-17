@@ -27,3 +27,12 @@ class DynamoQueries:
         except Exception as e:
             logger.warning(f'[DynamoDB]: Unable to get data for {index_value} from table {self.table_name}, e= {e}')
             raise e
+
+    def add_context(self, item: dict, return_values='ALL_OLD'):
+        try:
+            response = self.table.put_item(Item=item, ReturnValues=return_values)
+            model_data = response.get('Attributes')
+            return model_data
+        except Exception as e:
+            logger.warning(f'[DynamoDB]: Unable to add data for from table {self.table_name}, e= {e}')
+            raise e

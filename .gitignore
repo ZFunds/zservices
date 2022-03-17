@@ -7,3 +7,4 @@ test
 poetry.lock
 pyproject.toml
 .DS_Store
+*pyc
