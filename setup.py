@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(
     name='zservices',
-    packages=['zdynamodb'],
-    package_dir={'zdynamodb': 'zdynamodb'},
-    version='0.1.9',
+    packages=['zdynamodb', 'zdiscord'],
+    package_dir={'zdynamodb': 'zdynamodb', 'zdiscord': 'zdiscord'},
+    version='0.2.0',
     license='MIT',
     platforms='cross-platfom, platform-independent',
     description='ZFunds basic services',
@@ -13,9 +13,9 @@ setup(
     author_email='yogesh@zfunds.in',
     url='https://github.com/ZFunds/zservices/',
     download_url='https://github.com/ZFunds/zservices/',
-    keywords=['dynamodb'],
+    keywords=['dynamodb', 'discord'],
     install_requires=[
-        'python-dotenv==0.19.2', 'boto3==1.21.17'
+        'python-dotenv==0.19.2', 'boto3==1.21.17', 'requests==2.27.1'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
