@@ -34,11 +34,11 @@ def send_request(method, url, s_codes: list, params, headers, tag='N', json=None
             else:
                 raise requests.exceptions.RequestException('Forced Exception Invalid Status Code')
         except Exception as e:
-            logger.warning(f'[{tag}][{count}]. {url}, e={e}, r={response}', exc_info=True)
+            logger.warning(f'[Z-REQUEST] [{tag}][{count}]. {url}, e={e}, r={response}', exc_info=True)
             count += 1
             if sleep:
                 time.sleep(2 ** count)
             send_request(method, url, s_codes, params, headers, tag, json, count, sleep, s_text)
 
-        logger.error(f'[{tag}] {url}, r={response},', exc_info=True)
+        logger.error(f'[Z-REQUEST] [{tag}] {url}, r={response},', exc_info=True)
         return False, response

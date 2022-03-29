@@ -7,9 +7,11 @@ import requests
 
 
 class S3:
-    def __init__(self):
+    def __init__(self, connection_parameter=None, b_config=None):
         logger.debug('[S3]: Initiating S3 Connection Class')
-        self._connection_parameter = None
+        self._connection_parameter = connection_parameter
+        if self._connection_parameter:
+            self.set_connection_parameter(**connection_parameter)
         self._resource = None
         self._config = BConfig(retries={'max_attempts': 3, 'mode': 'standard'})
 
@@ -63,7 +65,7 @@ class S3:
             logger.info(f'[S3] Success {upload_from}->{upload_to}')
         except Exception as e:
             logger.error(f'[S3] Failed {upload_from}->{upload_to}', exc_info=True)
-            return False, parse_error('NE002', details=f'{upload_from}->{upload_to}', description=str(e))
+            return False, parse_error('ZE002', details=f'{upload_from}->{upload_to}', description=str(e))
 
         return True, {'message': 's3 upload success',
                       'upload_to': upload_to
@@ -80,7 +82,7 @@ class S3:
             logger.info(f'[S3] Success {upload_from}->{upload_to}')
         except Exception as e:
             logger.error(f'[S3] Failed {upload_from}->{upload_to}', exc_info=True)
-            return False, parse_error('NE002', details=f'{upload_from}->{upload_to}', description=str(e))
+            return False, parse_error('ZE002', details=f'{upload_from}->{upload_to}', description=str(e))
 
         return True, {'message': 's3 upload success',
                       'upload_to': upload_to

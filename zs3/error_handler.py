@@ -2,27 +2,27 @@ from requests import Response
 
 
 ec = {
-    # Notification Services Invalid Request Error
-    'CR001': 400,
+    # Z Request Invalid Request Error
+    'ZR001': 400,
 
-    # Notification Services Auth Error
-    'CA001': 401,
+    # Z Request Auth Error
+    'ZA001': 401,
 
-    # Notification Services Internal Error
-    'CI001': 500,
-    'CI002': 500,
-    'CI003': 500,
-    'CI004': 404,
+    # Z Request Internal Error
+    'ZI001': 500,
+    'ZI002': 500,
+    'ZI003': 500,
+    'ZI004': 404,
 
-    # Notification Services External Error
-    'NE001': 424,
-    'NE002': 424,
+    # Z Request External Error
+    'ZE001': 424,
+    'ZE002': 424,
 }
 
 em = {
     # Notification Services External Error
-    'NE001': 'Notification Services External Invalid Response Code',
-    'NE002': 'Notification Services External Invalid Response Text',
+    'ZE001': 'Notification Services External Invalid Response Code',
+    'ZE002': 'Notification Services External Invalid Response Text',
 }
 
 
