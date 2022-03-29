@@ -1,6 +1,7 @@
 build
 dist
 zservices.egg-info
+venv
 .env
 .idea
 test
