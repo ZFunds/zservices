@@ -20,7 +20,7 @@ ec = {
 }
 
 em = {
-    # Notification Services External Error
+    # Z Request External Error
     'ZE001': 'Notification Services External Invalid Response Code',
     'ZE002': 'Notification Services External Invalid Response Text',
 }
