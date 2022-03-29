@@ -5,7 +5,7 @@ load_dotenv(override=False)
 
 
 class Config:
-    APP_NAME = os.getenv('APP_NAME', 'Z-REQUESTS')
+    APP_NAME = os.getenv('APP_NAME', 'ZREQUESTS')
 
     # Environment
     ENVIRONMENT = os.getenv('ENVIRONMENT', 'PRODUCTION')
