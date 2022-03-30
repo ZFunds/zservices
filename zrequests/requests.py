@@ -5,11 +5,10 @@ from zrequests.setting import Setting
 import time
 import json as f_json
 from requests import Response
-from typing import Union, Tuple
 
 
 # todo if text contains in verify success
-def verify_success_text(s_text, response: Response) -> Tuple[bool, Union[list, Response]]:
+def verify_success_text(s_text, response: Response):
     if isinstance(s_text, dict):
         r_json = f_json.loads(response.text)
         for k, v in s_text.items():
@@ -22,11 +21,12 @@ def verify_success_text(s_text, response: Response) -> Tuple[bool, Union[list, R
 
 
 # todo remove sensitive info from url
-def send_request(method, url, s_codes: list, params, headers, tag='N', json=None, count=0, sleep=False, s_text=None):
+def send_request(method, url, s_codes: list, params, headers, tag='N', json=None, data=None, count=0, sleep=False,
+                 s_text=None):
     response = None
     if count < Setting.MAX_RETRY:
         try:
-            response = requests.request(method, url=url, params=params, headers=headers, json=json)
+            response = requests.request(method, url=url, params=params, data=data, headers=headers, json=json)
             if response.status_code in s_codes:
                 if not s_text:
                     return True, response
