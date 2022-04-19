@@ -3,8 +3,10 @@ from zs3 import s3
 # variables for testing
 connection_params = {
     'region': 'ap-south-1',
-    's3_key_id': 'AKIAZCY7RF6S3AG4J2X2',
-    's3_key_secret': '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'
+    's3_key_id': '',
+    's3_key_secret': '',
+    's3_upload_bucket_name': '',
+    's3_bucket_name': ''
 }
 bucket_name = "zfund-data-storage-pre"
 upload_from_url = "url"

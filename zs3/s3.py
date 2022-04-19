@@ -19,8 +19,10 @@ class S3:
         self._connection_parameter = {
             'region': Config.AWS['region'] if not kwargs.get('region') else kwargs.get('region'),
             "s3_key_id": Config.AWS['s3_key_id'] if not kwargs.get('s3_key_id') else kwargs.get('s3_key_id'),
-            "s3_key_secret": Config.AWS['s3_key_secret'] if not kwargs.get('s3_key_secret')
-            else kwargs.get('s3_key_secret'),
+            "s3_key_secret": Config.AWS['s3_key_secret'] if not kwargs.get('s3_key_secret') else kwargs.get(
+                's3_key_secret'),
+            "s3_bucket_name": Config.AWS['s3_bucket_name'] if not kwargs.get('s3_bucket_name') else kwargs.get(
+                's3_bucket_name'),
         }
 
     def get_connection_parameter(self):
@@ -41,7 +43,7 @@ class S3:
                                          aws_access_key_id=self._connection_parameter['s3_key_id'],
                                          aws_secret_access_key=self._connection_parameter['s3_key_secret'],
                                          config=self._config)
-            bucket = s3_resource.meta.client.head_bucket(Bucket=Config.AWS['s3_upload_bucket_name'])
+            bucket = s3_resource.meta.client.head_bucket(Bucket=Config.AWS['s3_bucket_name'])
 
             if bucket.get('ResponseMetadata') and bucket.get('ResponseMetadata').get('HTTPStatusCode') == 200:
                 self._resource = s3_resource
