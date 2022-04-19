@@ -17,9 +17,9 @@ class Config:
 
     # AWS
     AWS = {
-        's3_bucket_name': os.environ['AWS_S3_BUCKET_NAME'],
-        's3_upload_bucket_name': os.environ['AWS_S3_UPLOAD_BUCKET_NAME'],
-        's3_key_id': os.environ['AWS_S3_KEY_ID'],
-        's3_key_secret': os.environ['AWS_S3_SECRET_KEY'],
-        'region': os.environ['AWS_S3_REGION']
+        's3_bucket_name': os.getenv('AWS_S3_BUCKET_NAME'),
+        's3_upload_bucket_name': os.getenv('AWS_S3_UPLOAD_BUCKET_NAME'),
+        's3_key_id': os.getenv('AWS_S3_KEY_ID'),
+        's3_key_secret': os.getenv('AWS_S3_SECRET_KEY'),
+        'region': os.getenv('AWS_S3_REGION')
     }
