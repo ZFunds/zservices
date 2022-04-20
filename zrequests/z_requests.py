@@ -1,10 +1,8 @@
-# todo put in module z-requests
 import requests as sync_req
 from zrequests import logger
 from zrequests.setting import Setting
 import time
 import json as f_json
-# from requests import Response
 
 
 # todo if text contains in verify success
