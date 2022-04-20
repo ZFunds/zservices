@@ -43,13 +43,13 @@ class S3:
                                          aws_access_key_id=self._connection_parameter['s3_key_id'],
                                          aws_secret_access_key=self._connection_parameter['s3_key_secret'],
                                          config=self._config)
-            bucket = s3_resource.meta.client.head_bucket(Bucket=Config.AWS['s3_bucket_name'])
+            bucket = s3_resource.meta.client.head_bucket(Bucket=self._connection_parameter['s3_bucket_name'])
 
             if bucket.get('ResponseMetadata') and bucket.get('ResponseMetadata').get('HTTPStatusCode') == 200:
                 self._resource = s3_resource
                 logger.info(f'[S3]: Connection Successful. Connection={self._resource}')
             else:
-                raise Exception(f'Unable to connect to bucket={Config.AWS["s3_bucket_name"]}')
+                raise Exception(f'Unable to connect to bucket={self._connection_parameter["s3_bucket_name"]}')
         except Exception as e:
             self._resource = None
             logger.error(f'[S3]: connection issue, conn={self._resource}', exc_info=True)
