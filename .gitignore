@@ -4,7 +4,6 @@ zservices.egg-info
 venv
 .env
 .idea
-test
 poetry.lock
 pyproject.toml
 .DS_Store
