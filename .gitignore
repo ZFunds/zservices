@@ -1,0 +1,10 @@
+build
+dist
+zservices.egg-info
+venv
+.env
+.idea
+poetry.lock
+pyproject.toml
+.DS_Store
+*pyc
