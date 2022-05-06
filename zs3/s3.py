@@ -73,12 +73,14 @@ class S3:
                       'upload_to': upload_to
                       }
 
-    def file_upload_to_s3(self, upload_from, object_id, folder_name=None, bucket=None, public_read=True):
+    def file_upload_to_s3(self, upload_from, object_id, folder_name=None, bucket=None, public_read=True, extra_args=None
+                          ):
         bucket_name = bucket if bucket is not None else Config.AWS['s3_upload_bucket_name']
         key = f'{folder_name}/{str(object_id)}' if folder_name else str(object_id)
         bucket = self.connection.Bucket(bucket_name)
         upload_to = f'https://{bucket_name}.s3.{self._connection_parameter["region"]}.amazonaws.com/{key}'
         args = {'ACL': 'public-read'} if public_read else {}
+        args = args | extra_args if extra_args else args
         try:
             bucket.upload_file(Filename=upload_from, Key=key, ExtraArgs=args)
             logger.info(f'[S3] Success {upload_from}->{upload_to}')
