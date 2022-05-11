@@ -80,7 +80,8 @@ class S3:
         bucket = self.connection.Bucket(bucket_name)
         upload_to = f'https://{bucket_name}.s3.{self._connection_parameter["region"]}.amazonaws.com/{key}'
         args = {'ACL': 'public-read'} if public_read else {}
-        args = args | extra_args if extra_args
+        if extra_args:
+            args = args | extra_args
         try:
             bucket.upload_file(Filename=upload_from, Key=key, ExtraArgs=args)
             logger.info(f'[S3] Success {upload_from}->{upload_to}')
