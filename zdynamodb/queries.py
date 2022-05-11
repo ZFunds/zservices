@@ -23,6 +23,9 @@ class DynamoQueries:
         try:
             response = self.table.query(IndexName=index_name, KeyConditionExpression=Key(index_key).eq(index_value))
             model_data = response['Items']
+            while 'LastEvaluatedKey' in response:
+                response = self.table.query(ExclusiveStartKey=response['LastEvaluatedKey'],IndexName=index_name, KeyConditionExpression=Key(index_key).eq(index_value))
+                model_data.extend(response['Items'])
             return model_data
         except Exception as e:
             logger.warning(f'[DynamoDB]: Unable to get data for {index_value} from table {self.table_name}, e= {e}')
