@@ -4,7 +4,7 @@ setup(
     name='zservices',
     packages=['zdynamodb', 'zdiscord', 'zrequests', 'zs3'],
     package_dir={'zdynamodb': 'zdynamodb', 'zdiscord': 'zdiscord', 'zrequests': 'zrequests', 'zs3': 'zs3'},
-    version='0.2.2',
+    version='0.2.3',
     license='MIT',
     platforms='cross-platfom, platform-independent',
     description='ZFunds basic services',
