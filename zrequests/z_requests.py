@@ -36,7 +36,7 @@ def send_request(method, url, s_codes: list, params, headers, tag='N', json=None
             count += 1
             if sleep:
                 time.sleep(2 ** count)
-            send_request(method, url, s_codes, params, headers, tag, json, count, sleep, s_text)
+            return send_request(method, url, s_codes, params, headers, tag, json, data, count, sleep, s_text)
 
-        logger.error(f'[ZREQUEST] [{tag}] {url}, r={response},', exc_info=True)
-        return False, response
+    logger.error(f'[ZREQUEST] [{tag}] {url}, r={response},', exc_info=True)
+    return False, response
