@@ -17,9 +17,8 @@ class Config:
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 
     # AWS
-    AWS = {
-        's3_key_id': os.getenv('AWS_S3_KEY_ID'),
-        's3_key_secret': os.getenv('AWS_S3_SECRET_KEY'),
-        'region': os.getenv('AWS_S3_REGION'),
-        'dynamo_table': os.getenv('AWS_DYNAMO_TABLE')
+    SFTP = {
+        'hostname': os.getenv('SFTP_HOSTNAME'),
+        'username': os.getenv('SFTP_USERNAME'),
+        'password': os.getenv('SFTP_PASSWORD'),
     }
