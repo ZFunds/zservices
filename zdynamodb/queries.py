@@ -39,3 +39,22 @@ class DynamoQueries:
         except Exception as e:
             logger.warning(f'[DynamoDB]: Unable to add data for from table {self.table_name}, e= {e}')
             raise e
+
+    def update_context(self, id, update_expression, attribute_expression, return_values='ALL_NEW'):
+        # legal return_values => NONE, ALL_OLD, ALL_NEW, UPDATED_OLD, UPDATED_NEW
+        # dynamic_entries = {"updatedAt": str(datetime.utcnow().isoformat() + 'Z')}
+
+        try:
+            response = self.table.update_item(
+                Key={
+                    'id': id
+                },
+                UpdateExpression=update_expression,
+                ExpressionAttributeValues=attribute_expression,
+                ReturnValues=return_values
+            )
+            model_data = response.get('Attributes', {})
+            return model_data
+        except Exception as e:
+            logger.warning(f'[DynamoDB]: Unable to add data for from table {self.table_name}, e= {e}')
+            raise e
