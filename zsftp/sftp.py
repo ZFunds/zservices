@@ -4,7 +4,7 @@ import paramiko
 
 
 class SFTP:
-    def __init__(self, connection_parameter=None, b_config=None):
+    def __init__(self, connection_parameter=None):
         logger.debug('[SFTP]: Initiating Sftp Connection Class')
         self._connection_parameter = connection_parameter
         if self._connection_parameter:
@@ -41,14 +41,10 @@ class SFTP:
                                 password=self._connection_parameter['password'],
                                 allow_agent=self._allow_agent, look_for_keys=self._look_for_keys)
             sftp = sftp_client.open_sftp()
-            try:
-                sftp.listdir()
-                logger.info('[SFTP]: Connection Successful')
-            except:
-                raise Exception(f'[SFTP] Unable to connect to sftp')
+            sftp.listdir()
             self._client = sftp
             return sftp
         except Exception as e:
-            self._resource = None
-            logger.error(f'[SFTP]: connection issue, conn={self._resource}', exc_info=True)
-            raise Exception(f'[SFTP]: Connection Error with SFTP server {self._connection_parameter["hostname"]}. Error={e}')
+            self._client = None
+            logger.error(f'[SFTP]: Connection issue, conn={self._client}', exc_info=True)
+            raise Exception(f'[SFTP]: Connection error {self._connection_parameter["hostname"]}. error={e}')
