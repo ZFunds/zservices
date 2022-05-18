@@ -11,6 +11,7 @@ class SFTPQueries:
     def upload_file(self, local_path, sftp_path):
         try:
             resp = self._client.put(local_path, sftp_path)
+            logger.info(f'[SFTP]: File uploaded {sftp_path}')
             return resp
         except Exception as e:
             logger.warning(f'[SFTP]: Unable to upload file on sftp server, e= {e}')
@@ -18,7 +19,8 @@ class SFTPQueries:
 
     def make_directory(self, dir_name):
         try:
-            return self._client.mkdir(dir_name)
+            self._client.mkdir(dir_name)
+            logger.info(f'[SFTP]: Directory Created {dir_name}')
         except Exception as e:
             logger.warning(f'[SFTP]: Unable to create sftp connection, e= {e}')
             raise e
