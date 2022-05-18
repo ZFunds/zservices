@@ -43,6 +43,7 @@ class SFTP:
             sftp = sftp_client.open_sftp()
             try:
                 sftp.listdir()
+                logger.info('[SFTP]: Connection Successfully')
             except:
                 raise Exception(f'[SFTP] Unable to connect to sftp')
             self._client = sftp
