@@ -1,6 +1,8 @@
 from zsftp.sftp import SFTP
 from zdynamodb import logger
 
+# todo retry for each query
+
 
 class SFTPQueries:
     def __init__(self, connection_params=None):
@@ -10,25 +12,26 @@ class SFTPQueries:
 
     def upload_file(self, local_path, sftp_path):
         try:
-            resp = self._client.put(local_path, sftp_path)
+            response = self._client.put(local_path, sftp_path)
             logger.info(f'[SFTP]: File uploaded {sftp_path}')
-            return resp
+            return response
         except Exception as e:
-            logger.warning(f'[SFTP]: Unable to upload file on sftp server, e= {e}')
+            logger.warning(f'[SFTP]: Unable to upload file={local_path} on sftp server at ={sftp_path}, e= {e}')
             raise e
 
-    def make_directory(self, dir_name):
+    def make_directory(self, directory_name):
         try:
-            self._client.mkdir(dir_name)
-            logger.info(f'[SFTP]: Directory Created {dir_name}')
+            self._client.mkdir(directory_name)
+            logger.info(f'[SFTP]: Directory Created {directory_name}')
         except Exception as e:
-            logger.warning(f'[SFTP]: Unable to create sftp connection, e= {e}')
+            logger.warning(f'[SFTP]: Unable to create directory = {directory_name}, e= {e}')
             raise e
 
+    # todo pass param
     def list_directory(self):
         try:
             dir_list = self._client.listdir()
             return dir_list
         except Exception as e:
-            logger.warning(f'[SFTP]: Unable to create sftp connection, e= {e}')
+            logger.warning(f'[SFTP]: Unable to list directory, e= {e}')
             raise e
