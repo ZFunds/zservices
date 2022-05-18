@@ -27,11 +27,10 @@ class SFTPQueries:
             logger.warning(f'[SFTP]: Unable to create directory = {directory_name}, e= {e}')
             raise e
 
-    # todo pass param
-    def list_directory(self):
+    def list_directory(self, path="."):
         try:
-            dir_list = self._client.listdir()
+            dir_list = self._client.listdir(path=path)
             return dir_list
         except Exception as e:
-            logger.warning(f'[SFTP]: Unable to list directory, e= {e}')
+            logger.warning(f'[SFTP]: Unable to list directory {path}, e= {e}')
             raise e
