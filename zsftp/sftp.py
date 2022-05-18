@@ -50,4 +50,4 @@ class SFTP:
         except Exception as e:
             self._resource = None
             logger.error(f'[SFTP]: connection issue, conn={self._resource}', exc_info=True)
-            raise Exception(f'[SFTP]: Connection Error with S3. Error={e}')
+            raise Exception(f'[SFTP]: Connection Error with SFTP server {self._connection_parameter["hostname"]}. Error={e}')
