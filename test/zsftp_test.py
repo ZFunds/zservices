@@ -15,8 +15,8 @@ sftp = SFTPQueries(connection_params)
 # testing return values
 try:
     # t1 = sftp.make_directory("abcd")
-    t1 = sftp.upload_file(local_path, sftp_path)
-    # t1 = sftp.list_directory()
+    # t1 = sftp.upload_file(local_path, sftp_path)
+    t1 = sftp.list_directory()
     print(f"success: {t1}")
 except Exception as e:
     print(e)

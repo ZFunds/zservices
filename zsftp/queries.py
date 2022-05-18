@@ -15,17 +15,13 @@ class SFTPQueries:
         except Exception as e:
             logger.warning(f'[SFTP]: Unable to upload file on sftp server, e= {e}')
             raise e
-        finally:
-            self._client.close()
 
     def make_directory(self, dir_name):
         try:
-            self._client.mkdir(dir_name)
+            return self._client.mkdir(dir_name)
         except Exception as e:
             logger.warning(f'[SFTP]: Unable to create sftp connection, e= {e}')
             raise e
-        finally:
-            self._client.close()
 
     def list_directory(self):
         try:
@@ -34,5 +30,3 @@ class SFTPQueries:
         except Exception as e:
             logger.warning(f'[SFTP]: Unable to create sftp connection, e= {e}')
             raise e
-        finally:
-            self._client.close()
