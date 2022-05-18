@@ -92,3 +92,22 @@ class S3:
         return True, {'message': 's3 upload success',
                       'upload_to': upload_to
                       }
+
+    def bytes_upload_to_s3(self, file_obj, object_id, folder_name=None, bucket=None, public_read=True):
+        # Upload a file like object to s3
+        bucket_name = bucket if bucket is not None else Config.AWS['s3_upload_bucket_name']
+        key = f'{folder_name}/{str(object_id)}' if folder_name else str(object_id)
+        bucket = self.connection.Bucket(bucket_name)
+        upload_to = f'https://{bucket_name}.s3.{self._connection_parameter["region"]}.amazonaws.com/{key}'
+        args = {'ACL': 'public-read'} if public_read else {}
+        try:
+            bucket.upload_fileobj(file_obj, key, ExtraArgs=args)
+            logger.info(f'[S3] Upload Success {upload_to}')
+        except Exception as e:
+            logger.error(f'[S3] Upload Failed {upload_to}', exc_info=True)
+            return False, parse_error('ZE002', details=f'bytes_start {file_obj} bytes_end->{upload_to}',
+                                      description=str(e))
+
+        return True, {'message': 's3 upload success',
+                      'upload_to': upload_to
+                      }
