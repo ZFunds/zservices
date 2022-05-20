@@ -55,13 +55,16 @@ class S3:
             logger.error(f'[S3]: connection issue, conn={self._resource}', exc_info=True)
             raise Exception(f'[S3]: Connection Error with S3. Error={e}')
 
-    def url_upload_to_s3(self, upload_from, object_id, folder_name=None, bucket=None, public_read=True):
+    def url_upload_to_s3(self, upload_from, object_id, folder_name=None, bucket=None, public_read=True,
+                         extra_args=None):
         r = requests.get(upload_from, stream=True)
         bucket_name = bucket if bucket is not None else Config.AWS['s3_upload_bucket_name']
         key = f'{folder_name}/{str(object_id)}' if folder_name else str(object_id)
         bucket = self.connection.Bucket(bucket_name)
         upload_to = f'https://{bucket_name}.s3.{self._connection_parameter["region"]}.amazonaws.com/{key}'
         args = {'ACL': 'public-read'} if public_read else {}
+        if extra_args:
+            args = args | extra_args
         try:
             bucket.upload_fileobj(r.raw, key, ExtraArgs=args)
             logger.info(f'[S3] Success {upload_from}->{upload_to}')
@@ -73,8 +76,8 @@ class S3:
                       'upload_to': upload_to
                       }
 
-    def file_upload_to_s3(self, upload_from, object_id, folder_name=None, bucket=None, public_read=True, extra_args=None
-                          ):
+    def file_upload_to_s3(self, upload_from, object_id, folder_name=None, bucket=None, public_read=True,
+                          extra_args=None):
         bucket_name = bucket if bucket is not None else Config.AWS['s3_upload_bucket_name']
         key = f'{folder_name}/{str(object_id)}' if folder_name else str(object_id)
         bucket = self.connection.Bucket(bucket_name)
@@ -93,13 +96,15 @@ class S3:
                       'upload_to': upload_to
                       }
 
-    def bytes_upload_to_s3(self, file_obj, object_id, folder_name=None, bucket=None, public_read=True):
+    def bytes_upload_to_s3(self, file_obj, object_id, folder_name=None, bucket=None, public_read=True, extra_args=None):
         # Upload a file like object to s3
         bucket_name = bucket if bucket is not None else Config.AWS['s3_upload_bucket_name']
         key = f'{folder_name}/{str(object_id)}' if folder_name else str(object_id)
         bucket = self.connection.Bucket(bucket_name)
         upload_to = f'https://{bucket_name}.s3.{self._connection_parameter["region"]}.amazonaws.com/{key}'
         args = {'ACL': 'public-read'} if public_read else {}
+        if extra_args:
+            args = args | extra_args
         try:
             bucket.upload_fileobj(file_obj, key, ExtraArgs=args)
             logger.info(f'[S3] Upload Success {upload_to}')
