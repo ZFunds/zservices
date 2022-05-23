@@ -1,5 +1,6 @@
 from zsftp.sftp import SFTP
-from zdynamodb import logger
+from zsftp import logger
+
 
 # todo retry for each query
 
