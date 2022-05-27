@@ -30,7 +30,8 @@ def send_request(method, url, s_codes: list, params, headers, tag='N', json=None
                     return True, response
                 return verify_success_text(s_text, response)
             else:
-                raise sync_req.exceptions.RequestException('Forced Exception Invalid Status Code')
+                logger.error(f'[ZREQUEST] [{tag}] {url}, "HTTP code not in s_codes", r={response},', exc_info=True)
+                return False, response
         except Exception as e:
             logger.warning(f'[ZREQUEST] [{tag}][{count}]. {url}, e={e}, r={response}', exc_info=True)
             count += 1
