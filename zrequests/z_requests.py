@@ -5,7 +5,6 @@ import time
 import json as f_json
 
 
-# todo if text contains in verify success
 def verify_success_text(s_text, response: sync_req.Response):
     if isinstance(s_text, dict):
         r_json = f_json.loads(response.text)
@@ -15,6 +14,13 @@ def verify_success_text(s_text, response: sync_req.Response):
             else:
                 return False, response
         return True, response
+
+    if isinstance(s_text, str):
+        if s_text in response.text:
+            return True, response
+        else:
+            return False, response
+
     return False, response
 
 
