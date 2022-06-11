@@ -45,11 +45,3 @@ def send_request(method, url, s_codes: list, params, headers, tag='N', json=None
 
     logger.error(f'[ZREQUEST] [{tag}] Failed to get proper response for {url} r={response},', exc_info=True)
     return False, response
-
-
-def handle_error_exception(method, url, s_codes, params, headers, tag, json, data, count, sleep, s_text):
-    logger.warning(f'[ZREQUEST] [{tag}][{count}]. {url}, e={e}, r={response}', exc_info=True)
-    count += 1
-    if sleep:
-        time.sleep(2 ** count)
-
