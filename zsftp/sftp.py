@@ -18,6 +18,7 @@ class SFTP:
             'hostname': Config.SFTP['hostname'] if not kwargs.get('hostname') else kwargs.get('hostname'),
             "username": Config.SFTP['username'] if not kwargs.get('username') else kwargs.get('username'),
             "password": Config.SFTP['password'] if not kwargs.get('password') else kwargs.get('password'),
+            "port": Config.SFTP['port'] if not kwargs.get('port') else kwargs.get('port'),
         }
 
     def get_connection_parameter(self):
@@ -39,11 +40,12 @@ class SFTP:
             sftp_client.connect(hostname=self._connection_parameter['hostname'],
                                 username=self._connection_parameter['username'],
                                 password=self._connection_parameter['password'],
+                                port=int(self._connection_parameter['port']),
                                 allow_agent=self._allow_agent, look_for_keys=self._look_for_keys)
             sftp = sftp_client.open_sftp()
             sftp.listdir()
             self._client = sftp
-            return sftp
+            return self._client
         except Exception as e:
             self._client = None
             logger.error(f'[SFTP]: Connection issue, conn={self._client}', exc_info=True)
