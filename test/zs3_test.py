@@ -1,5 +1,6 @@
 from zs3 import s3
 from zs3.config import Config
+import os
 
 # variables for testing
 connection_params = {
@@ -33,3 +34,20 @@ try:
         t3 = s3_conn.bytes_upload_to_s3(upload_from_file_obj, object_id="test3", bucket=bucket_name)
 except Exception as e:
     print(e)
+
+try:
+    t4 = s3_conn.object_exists_on_s3('TANVI.png', bucket='zfunds-public')
+    print(f"success, {t4}")
+except Exception as e:
+    print(e)
+
+try:
+    t5 = s3_conn.get_obj_from_url("https://zfund-data-storage.s3.ap-south-1.amazonaws.com/0016b144-55b8-4c21-a628-0f123efafa34_pan_card_img")
+    # t5[1].seek(0)
+    # with open("img_test.png", "wb") as f:
+    #     f.write(t5[1].getbuffer())
+    print(f"success, {t5}")
+except Exception as e:
+    print(e)
+
+os.remove('test3.txt')

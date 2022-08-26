@@ -4,6 +4,7 @@ import boto3
 from zs3.error_handler import parse_error
 from botocore.config import Config as BConfig
 import requests
+from io import BytesIO
 
 
 class S3:
@@ -116,3 +117,33 @@ class S3:
         return True, {'message': 's3 upload success',
                       'upload_to': upload_to
                       }
+
+    def object_exists_on_s3(self, file_name, folder_name=None, bucket=None):
+        bucket_name = bucket if bucket is not None else Config.AWS['s3_upload_bucket_name']
+        key = f"{folder_name}/{file_name}" if folder_name else f"{file_name}"
+        try:
+            s3_object = self.connection.Object(bucket_name, key).json()
+            return True, s3_object
+        except Exception as e:
+            logger.error(f"[S3] Could not find object in bucket: {bucket_name} | key: {key}")
+            return False, parse_error('ZE004', details=f'Object not found : {bucket_name} > {key}', description=str(e),
+                                      exc=e)
+
+    def get_obj_from_url(self, url):
+        """
+        returns a bytesIO s3 object.
+        """
+        bucket_name = url.split('/')[2].split('.')[0]
+        obj_name = url.split('/')[-1]
+        folder = url.split('/')[3:-1]
+        key = f"{folder}/{obj_name}" if folder else f"{obj_name}"
+        try:
+            s3_file = BytesIO()
+            s3_object = self.connection.Object(bucket_name, key)
+            s3_object.download_fileobj(s3_file)
+            s3_file.seek(0)
+            return True, s3_file
+        except Exception as e:
+            logger.error(f"[S3] Could not find object in bucket: {bucket_name} | key: {key}")
+            return False, parse_error('ZE004', details=f'Object not found : {bucket_name} > {key}', description=str(e),
+                                      exc=e)
