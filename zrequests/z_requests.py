@@ -38,6 +38,8 @@ def send_request(method, url, s_codes: list, params, headers, tag='N', json=None
             else:
                 logger.warning(f'[ZREQUEST] [{tag}][{count}] {url}, e=HTTP code not in s_codes, r={response}')
                 count += 1
+                if count >= Setting.MAX_RETRY:
+                    return False, response
                 if sleep:
                     time.sleep(2 ** count)
                 return send_request(method, url, s_codes, params, headers, tag, json, data, count, sleep, s_text)
